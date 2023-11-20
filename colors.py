@@ -7,9 +7,7 @@ colors = {
     4: (0, 143, 57),      # Verde / Rama
     5: (255, 0, 128),     # Rosa / Flor
     6: (239, 207, 242),      # Mapa de Ruido 1
-    7: (241, 172, 246),    # Mapa de Ruido 2
+    7: (241, 172, 246),      # Mapa de Ruido 2
     8: (233, 138, 240),      # Mapa de Ruido 3
     9: (229, 104, 228),      # Mapa de Ruido 4
-    10: (233, 0, 250),    # Mapa de Ruido 5
-
 }

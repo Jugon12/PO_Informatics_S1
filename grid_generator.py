@@ -1,4 +1,5 @@
 import random
+import math
 from perlin_noise import PerlinNoise
 
 def generate_grid(grid_width, grid_height, square_size):
@@ -16,10 +17,9 @@ def generate_grid(grid_width, grid_height, square_size):
     grid = sunGrid + skyGrid + dirtGrid # Concatenamos todas las listas
 
     # Generamos mediante la función de ruido de Perlin valores aleatorios suavizados para el valor de los minerales de las últimas capas
-    noise = PerlinNoise(octaves=7, seed=random.randint(0, 10000))
+    noise = PerlinNoise(octaves=6, seed=random.randint(0, 10000))
     for y in range(grid_height - dirtHeight, grid_height):
         for x in range(grid_width):
-            noise_value = (noise([x / 30, y / 30]) * 4.0) + 3
-            grid[y][x]["minerals"] = round(noise_value)
-
+            noise_value = math.ceil((noise([x / 30, y / 30]) * 3) + 2)
+            grid[y][x]["minerals"] = noise_value
     return grid

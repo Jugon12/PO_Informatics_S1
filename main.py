@@ -1,6 +1,6 @@
 import pygame
 from grid_generator import generate_grid
-from cell_management import create_cell, destroy_cell, analyze_env, calc_prob
+from cell_management import create_cell, destroy_cell, analyze_env, calc_prob, evolute
 from enviroment_management import reduce_sun, check_gravity
 from colors import colors
 import random
@@ -17,12 +17,14 @@ pygame.display.set_caption("Cuadrícula de Colores")
 square_size = 32
 grid_width = int(window_width / square_size)
 grid_height = int(window_height / square_size)
+cellList = []
 grid = generate_grid(grid_width, grid_height, square_size)
 xInitPlant = random.randint(int(grid_width/3), 2 * int(grid_width/3))
-create_cell(grid, xInitPlant, grid_height - 7, 10, 3)
+create_cell(grid, xInitPlant, grid_height - 7, 10, 3, cellList)
 
 intervalo_tiempo = 1000  # Ejecución cada 1000 ms (1 segundo)
 tiempo_anterior = pygame.time.get_ticks()
+clock = pygame.time.Clock()
 showNoiseMap = True
 
 # Bucle principal
@@ -39,7 +41,7 @@ while running:
             elif event.key == pygame.K_a:
                 grid = generate_grid(grid_width, grid_height, square_size)  # Cambia el valor de la variable cuando se pulsa 'a'
                 xInitPlant = random.randint(int(grid_width/3), 2 * int(grid_width/3))
-                create_cell(grid, xInitPlant, grid_height - 7, 10, 3)
+                create_cell(grid, xInitPlant, grid_height - 7, 10, 3, cellList)
 
             elif event.key == pygame.K_s:
                 print(analyze_env(grid, 10, 10))
@@ -54,10 +56,17 @@ while running:
 
     # Comprobar si ha pasado el intervalo de tiempo
     if tiempo_actual - tiempo_anterior >= intervalo_tiempo:
+
         # Aquí puedes realizar alguna acción o proceso a ejecutar a intervalos regulares
+        cellNumber = len(cellList)
+        for i in range(cellNumber):
+            cell = cellList[i]
+            evolute(grid, cell[1], cell[0], cellList)
+            #pygame.display.flip()
 
         # Actualizar el tiempo anterior
         tiempo_anterior = tiempo_actual
+    clock.tick(1)
 
     # Dibuja la cuadrícula
     for y in range(grid_height):

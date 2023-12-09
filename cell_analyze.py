@@ -1,16 +1,41 @@
+from numpy import array
 
 def checkSelf(grid, x, y):
-    if grid[y][x]["eter"] < 3: #Condicion para morir
+
+    die_par = 3
+    grow_par = 7
+
+    if grid[y][x]["minerals"] != -1: 
+        die_par = 5
+        grow_par = 20
+        
+    if y < 10:
+        die_par = 2
+        grow_par = 5
+
+    if grid[y][x]["eter"] < die_par: #Condicion para morir
         return "die"
-    elif grid[y][x]["eter"] > 7: # Condicion para reproducirse
+    elif grid[y][x]["eter"] > grow_par: # Condicion para reproducirse
         return "grow"
     else : # Condición para mantenerse
         return None
 
+def checkSorrounded(grid, x, y):
+
+    sorrounded = True
+    sorroundedNumber = -1
+
+    for x_check in range (-1, 2):
+        for y_check in range(-1, 2):
+            if grid[y + y_check][x + x_check]["cell"] == None: 
+                sorrounded = False
+            else:
+                sorroundedNumber += 1
+
+    return sorrounded, sorroundedNumber
+
+
 def analyze_env(grid, x, y):
-    # Indices de los bloques alrededor
-    #Eje x (hacia derecha)
-    #Eje Y (hacia abajo)
 
     # 0    1     2
     # 3  centro  4

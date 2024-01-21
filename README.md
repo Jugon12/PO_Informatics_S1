@@ -1,0 +1,1 @@
+Python computer simulation of the growth of a plant based on external parameters generated randomly (sun, soil quality, "eter" or nutrients and height). This project is made for the informatics final assignment as part of my Aerospace Engineering Degree in the UPM university. Made by Raúl Linta, Rafael Pavón, Carlos Moro and Mingming Zhu. 2023.
